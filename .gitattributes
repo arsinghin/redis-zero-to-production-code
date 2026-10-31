@@ -1,0 +1,7 @@
+# Keep Unix line endings so the scripts run on Linux, macOS, and WSL
+# even when the repo is cloned or edited on Windows.
+* text=auto eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+*.js text eol=lf
+*.yml text eol=lf

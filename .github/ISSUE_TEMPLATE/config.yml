@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Get the book
+    url: https://arsinghin.gumroad.com/l/redis-zero-to-production
+    about: "Redis: The Complete Guide from Zero to Production explains every example in this repo."
+  - name: Report a security problem
+    url: https://github.com/arsinghin/redis-zero-to-production-code/security/policy
+    about: Please don't open a public issue for security problems.

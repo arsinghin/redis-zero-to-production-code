@@ -1,0 +1,25 @@
+name: Question about an example
+description: Not sure how or why an example works.
+title: "[Question] "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Questions about the code are welcome here. Please check the matching section of the book first;
+        most examples are explained there step by step.
+
+  - type: input
+    id: file
+    attributes:
+      label: Which file or book section?
+      placeholder: python/part4_concurrency.py, or Part 4.5
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+    validations:
+      required: true

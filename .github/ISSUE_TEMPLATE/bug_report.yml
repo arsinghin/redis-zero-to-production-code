@@ -1,0 +1,80 @@
+name: Broken example
+description: A script fails, or prints something different from the book.
+title: "[Part N] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting this. Redis and its client libraries change often, and reports like
+        yours keep the examples working for everyone.
+
+  - type: dropdown
+    id: file
+    attributes:
+      label: Which file?
+      options:
+        - python/part1_basics.py
+        - node/part1_basics.js
+        - python/part2_structures.py
+        - python/part3_caching.py
+        - python/part4_concurrency.py
+        - python/part5_messaging.py
+        - python/part6_memory.py
+        - tests/part6_power_cut.sh
+        - tests/part7_replication.sh
+        - tests/part7_sentinel.sh / python/part7_sentinel_client.py
+        - tests/part7_cluster.sh / python/part7_cluster_client.py
+        - python/part8_operations.py
+        - python/part9_ai.py
+        - python/part9b_query_engine_UNTESTED.py
+        - python/part10_order_flow.py
+        - tests/run_all.sh
+        - docker/ (Compose files)
+        - Something else
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Paste the full error or output. It's formatted as code automatically.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+      description: For example, the output shown in the book, with the section number (e.g. Part 4.5).
+    validations:
+      required: false
+
+  - type: input
+    id: redis-version
+    attributes:
+      label: Redis version
+      description: Output of `redis-server --version`
+      placeholder: Redis server v=8.10.2
+    validations:
+      required: true
+
+  - type: input
+    id: client-version
+    attributes:
+      label: Client and version
+      description: Output of `pip show redis`, or the node-redis version in `node/node_modules/redis/package.json`
+      placeholder: redis-py 8.1.0 / Python 3.12
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      description: Include Docker or WSL if you use them.
+      placeholder: macOS 15 / Ubuntu 24.04 / Windows 11 + WSL
+    validations:
+      required: true

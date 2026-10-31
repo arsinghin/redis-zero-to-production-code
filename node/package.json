@@ -1,0 +1,26 @@
+{
+  "name": "slice-and-dice-redis-node",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Node.js examples for Redis: The Complete Guide from Zero to Production",
+  "author": "AR Singh <arsinghin@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/arsinghin/redis-zero-to-production-code#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arsinghin/redis-zero-to-production-code.git",
+    "directory": "node"
+  },
+  "bugs": {
+    "url": "https://github.com/arsinghin/redis-zero-to-production-code/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "part1": "node part1_basics.js"
+  },
+  "dependencies": {
+    "redis": "6.3.0"
+  }
+}

@@ -1,0 +1,2 @@
+redis==8.1.0
+numpy>=1.26   # only for part9b_query_engine_UNTESTED.py

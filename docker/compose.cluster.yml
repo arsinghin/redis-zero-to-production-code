@@ -1,0 +1,35 @@
+# A 6-node Redis Cluster (3 primaries + 3 replicas).
+#
+#   docker compose -f compose.cluster.yml up -d
+#   redis-cli -c -p 7001 cluster info
+#
+# LINUX ONLY: it uses host networking so the cluster's node addresses are
+# reachable from your machine. On macOS/Windows, use tests/part7_cluster.sh
+# instead (needs redis-server installed locally, e.g. `brew install redis`).
+#
+# NOT RUN BY THE BOOK'S TEST SUITE. tests/part7_cluster.sh is tested.
+x-node: &node
+  image: redis:8
+  network_mode: host
+
+services:
+  node-1: { <<: *node, command: ["redis-server", "--port", "7001", "--cluster-enabled", "yes", "--cluster-config-file", "nodes-7001.conf", "--appendonly", "yes"] }
+  node-2: { <<: *node, command: ["redis-server", "--port", "7002", "--cluster-enabled", "yes", "--cluster-config-file", "nodes-7002.conf", "--appendonly", "yes"] }
+  node-3: { <<: *node, command: ["redis-server", "--port", "7003", "--cluster-enabled", "yes", "--cluster-config-file", "nodes-7003.conf", "--appendonly", "yes"] }
+  node-4: { <<: *node, command: ["redis-server", "--port", "7004", "--cluster-enabled", "yes", "--cluster-config-file", "nodes-7004.conf", "--appendonly", "yes"] }
+  node-5: { <<: *node, command: ["redis-server", "--port", "7005", "--cluster-enabled", "yes", "--cluster-config-file", "nodes-7005.conf", "--appendonly", "yes"] }
+  node-6: { <<: *node, command: ["redis-server", "--port", "7006", "--cluster-enabled", "yes", "--cluster-config-file", "nodes-7006.conf", "--appendonly", "yes"] }
+
+  create-cluster:
+    <<: *node
+    depends_on: [node-1, node-2, node-3, node-4, node-5, node-6]
+    restart: "no"
+    command:
+      - sh
+      - -c
+      - >
+        sleep 3 &&
+        redis-cli --cluster create
+        127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003
+        127.0.0.1:7004 127.0.0.1:7005 127.0.0.1:7006
+        --cluster-replicas 1 --cluster-yes

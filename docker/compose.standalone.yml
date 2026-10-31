@@ -1,0 +1,30 @@
+# One Redis 8 server + Redis Insight (a free GUI) for following the book.
+#
+#   docker compose -f compose.standalone.yml up -d
+#   docker compose -f compose.standalone.yml exec redis redis-cli
+#   Redis Insight: http://localhost:5540  (add database: host "redis", port 6379)
+#
+# NOT RUN BY THE BOOK'S TEST SUITE (no Docker in the author's test machine).
+services:
+  redis:
+    image: redis:8
+    command: ["redis-server", "--appendonly", "yes", "--appendfsync", "everysec"]
+    ports:
+      - "127.0.0.1:6379:6379"     # localhost only: never publish 6379 to the internet
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  redisinsight:
+    image: redis/redisinsight:latest
+    ports:
+      - "127.0.0.1:5540:5540"
+    depends_on:
+      - redis
+
+volumes:
+  redis-data:

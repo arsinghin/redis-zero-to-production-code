@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Node
+node_modules/
+package-lock.json
+npm-debug.log*
+
+# Redis files the demos may leave behind
+*.rdb
+*.aof
+appendonlydir/
+nodes-*.conf
+sentinel-*.conf
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local settings
+.env

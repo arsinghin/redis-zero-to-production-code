@@ -1,0 +1,59 @@
+name: tests
+
+# Runs every example from the book against a real Redis 8.
+# Weekly runs catch breakage from new Redis or client releases before readers do.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"   # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  run-all:
+    name: Redis 8 · Python 3.12 · Node 22
+    # Pinned: packages.redis.io publishes builds per Ubuntu release.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install Redis 8 (official packages)
+        run: |
+          curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+          sudo chmod 644 /usr/share/keyrings/redis-archive-keyring.gpg
+          echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" \
+            | sudo tee /etc/apt/sources.list.d/redis.list
+          sudo apt-get update
+          sudo apt-get install -y redis
+          # The package starts a server on 6379; the test runner starts its own.
+          sudo systemctl stop redis-server || true
+          sudo systemctl disable redis-server || true
+          redis-server --version
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+
+      - name: Install client libraries
+        run: |
+          pip install -r requirements.txt
+          npm install --prefix node --no-audit --no-fund
+
+      - name: Run every example
+        run: |
+          bash tests/run_all.sh | tee test-output.txt
+          grep -q "passed: 14  failed: 0" test-output.txt

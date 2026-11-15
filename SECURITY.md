@@ -4,11 +4,10 @@
 
 If you find a security problem in this repository, for example an example that
 teaches an unsafe pattern or a file that exposes something it shouldn't,
-please **don't open a public issue**. Instead:
-
-- Use GitHub's **Report a vulnerability** button on the
-  [Security tab](https://github.com/arsinghin/redis-zero-to-production-code/security), or
-- Email **arsinghin@gmail.com** with "SECURITY" in the subject.
+please **don't open a public issue**. Instead, use GitHub's
+**Report a vulnerability** button on the
+[Security tab](https://github.com/arsinghin/redis-zero-to-production-code/security).
+Only you and the maintainer can see the report.
 
 You'll get a reply within 7 days. Once it's fixed, you'll be credited in the
 fix unless you'd rather not be.

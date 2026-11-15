@@ -17,7 +17,7 @@ book explains *why* each one works; this repo lets you run it, break it, and
 watch it recover.
 
 > **Get the book:** [Redis: The Complete Guide from Zero to Production](https://arsinghin.gumroad.com/l/redis-zero-to-production)
-> 10 parts · 12 diagrams · PDF + EPUB
+> 10 parts · 141 pages · 18 diagrams · PDF + EPUB
 
 Every script runs end to end on **Redis 8.10.2**, **Python 3.12** with
 **redis-py 8.1.0**, and **Node 22** with **node-redis 6.3.0**. The output
@@ -75,16 +75,16 @@ docker run -d --name redis -p 127.0.0.1:6379:6379 redis:8
 python3 -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-cd python && python part1_basics.py
+(cd python && python part1_basics.py)
 
-# 3. Node example (from the repo root)
-cd node && npm install && node part1_basics.js
+# 3. Node example
+(cd node && npm install && node part1_basics.js)
 ```
 
 All scripts read `REDIS_URL` (default `redis://localhost:6379/0`):
 
 ```bash
-REDIS_URL=redis://localhost:6380/0 python part3_caching.py
+(cd python && REDIS_URL=redis://localhost:6380/0 python part3_caching.py)
 ```
 
 ## Requirements
@@ -179,7 +179,8 @@ the top of this page shows the latest result.
 |---|---|
 | `Something is already running on port 6379` | The test runner needs the port free. Stop the other Redis: `docker stop redis`, `brew services stop redis`, or `sudo systemctl stop redis-server`. |
 | `ConnectionError: Error 111 connecting to localhost:6379` | Redis isn't running, or it's on another port. Start it, or set `REDIS_URL`. |
-| `unknown command 'VADD'` or `'VSIM'` (Part 9) | Vector Sets need Redis 8.0 or newer. Check with `redis-server --version`. |
+| `unknown command 'VADD'` or `'VSIM'` (Part 9) | Vector Sets need Redis 8.0 or newer (not Valkey). Check with `redis-server --version`. |
+| `Invalid stream ID` or `syntax error` on `ACKED` (Part 10) | `ACKED` stream trimming needs Redis 8.2 or newer (for example, the `redis:8` Docker image). |
 | `unknown command 'HEXPIRE'` (Part 2) | Hash-field expiry needs Redis 7.4 or newer. |
 | `unknown command 'FT.CREATE'` (Part 9b) | Your build has no Query Engine. Use the `redis:8` Docker image. |
 | `redis-server: command not found` | The shell demos need the binaries, not only Docker. Install with `brew install redis` or the Linux packages above. |
@@ -205,8 +206,8 @@ facts into one connected mental model: not just *what* each command does, but
 *why* it works and *when* it breaks in production.
 
 - Book: [Redis: The Complete Guide from Zero to Production](https://arsinghin.gumroad.com/l/redis-zero-to-production)
+- More from the author: [arsinghin.gumroad.com](https://arsinghin.gumroad.com/)
 - GitHub: [@arsinghin](https://github.com/arsinghin)
-- Email: arsinghin@gmail.com
 
 If the examples helped you, a star on this repo helps other engineers find it.
 
@@ -215,5 +216,6 @@ If the examples helped you, a star on this repo helps other engineers find it.
 The **code** in this repository is released under the [MIT License](LICENSE).
 Use it in your own projects, commercial or not.
 
-The **book** (text, diagrams, and cover) is not part of this repository and is
-not covered by this license. © 2026 AR Singh. All rights reserved.
+The **book** (text, diagrams, and cover; ISBN: 978-93-345-9589-5) is not part
+of this repository and is not covered by this license. Copyright © 2026 AR Singh.
+All rights reserved.

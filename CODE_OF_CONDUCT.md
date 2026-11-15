@@ -21,5 +21,6 @@ whatever their experience level.
 ## Enforcement
 
 The maintainer may edit or remove comments, close issues, or block accounts
-that break these rules. To report a problem, email **arsinghin@gmail.com**.
-Reports are kept private.
+that break these rules. To report a comment or account, use GitHub's
+**Report content** option in the comment's `...` menu. GitHub reviews those
+reports privately, and the maintainer acts on anything that breaks these rules.

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "Node.js examples for Redis: The Complete Guide from Zero to Production",
-  "author": "AR Singh <arsinghin@gmail.com>",
+  "author": "AR Singh (https://arsinghin.gumroad.com/)",
   "license": "MIT",
   "homepage": "https://github.com/arsinghin/redis-zero-to-production-code#readme",
   "repository": {
